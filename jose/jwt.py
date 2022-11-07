@@ -2,8 +2,13 @@
 import binascii
 import json
 
+import sys
+if sys.version_info[0] <= 3 and sys.version_info[1] < 10:
+    from collections import Mapping
+else:
+    from collections.abc import Mapping
+
 from calendar import timegm
-from collections import Mapping
 from datetime import datetime
 from datetime import timedelta
 from six import string_types
@@ -431,7 +436,7 @@ def _validate_at_hash(claims, access_token, algorithm):
     except (TypeError, ValueError):
         msg = 'Unable to calculate at_hash to verify against token claims.'
         raise JWTClaimsError(msg)
-        
+
     if claims['at_hash'] != expected_hash:
         raise JWTClaimsError('at_hash claim does not match access_token.')
 

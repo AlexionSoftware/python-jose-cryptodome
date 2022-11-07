@@ -3,7 +3,11 @@ import binascii
 import json
 import six
 
-from collections import Mapping, Iterable
+import sys
+if sys.version_info[0] <= 3 and sys.version_info[1] < 10:
+    from collections import Mapping, Iterable
+else:
+    from collections.abc import Mapping, Iterable
 
 from jose import jwk
 from jose.constants import ALGORITHMS
